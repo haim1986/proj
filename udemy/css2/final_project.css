@@ -1,0 +1,28 @@
+
+.all{
+  margin:auto;
+
+}
+td{
+  height: 300px;
+  width: 100px;
+  /* padding: 30px; */
+  border: 8px solid white;
+}
+#c1{
+  background: #B99ACE;
+  /* margin: 180px 120px 100px 400px; */
+
+}
+#c2{
+  background: #8686A5
+}
+#c3{
+  background: #FFEFE5
+}
+#c4{
+  background: #F4F4F4
+}
+#c5{
+  background: #7E4B8C
+}

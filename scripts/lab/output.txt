@@ -1,0 +1,54 @@
+['entry.856350636', 'entry.9230700', 'entry.67883243', 'entry.1211138929', 'entry.1891939226', 'entry.524829492', 'entry.251390651', 'entry.453313327', 'entry.1247670642', 'entry.233071823', 'entry.493168697', 'entry.1910870939', 'entry.1336951072', 'entry.849564437', 'entry.98733676', 'entry.1122639694', 'entry.849630380', 'entry.2049040412', 'entry.312357926', 'entry.957548701', 'entry.1941981728', 'entry.1999496567', 'entry.1784922373', 'entry.977502270', 'entry.709540229', 'entry.416285979', 'entry.1401925614']
+{'A': 'entry.856350636', 'B': 'entry.9230700', 'C': 'entry.67883243', 'D': 'entry.1211138929', 'E': 'entry.1891939226', 'F': 'entry.524829492', 'G': 'entry.251390651', 'H': 'entry.453313327', 'I': 'entry.1247670642', 'J': 'entry.233071823', 'K': 'entry.493168697', 'L': 'entry.1910870939', 'M': 'entry.1336951072', 'N': 'entry.849564437', 'O': 'entry.98733676', 'P': 'entry.1122639694', 'Q': 'entry.849630380', 'R': 'entry.2049040412', 'S': 'entry.312357926', 'T': 'entry.957548701', 'U': 'entry.1941981728', 'V': 'entry.1999496567', 'W': 'entry.1784922373', 'X': 'entry.977502270', 'Y': 'entry.709540229', 'Z': 'entry.416285979', '[': 'entry.1401925614'}
+
+
+ function myFunction() {
+  NUMBER_OF_RESPONSES = 27
+
+  var formURL ='https://docs.google.com/forms/u/0/d/e/1FAIpQLSfEan9kz5zkPTbyn4Xotg4FDYL5-d9_DAoi_BMGLsQG1JmeKQ/formResponse';
+
+  var wrkBk = SpreadsheetApp.getActiveSpreadsheet();
+  var wrkSht = wrkBk.getSheetByName("Sheet1");
+
+
+  my_entries_list =['entry.856350636', 'entry.9230700', 'entry.67883243', 'entry.1211138929', 'entry.1891939226', 'entry.524829492', 'entry.251390651', 'entry.453313327', 'entry.1247670642', 'entry.233071823', 'entry.493168697', 'entry.1910870939', 'entry.1336951072', 'entry.849564437', 'entry.98733676', 'entry.1122639694', 'entry.849630380', 'entry.2049040412', 'entry.312357926', 'entry.957548701', 'entry.1941981728', 'entry.1999496567', 'entry.1784922373', 'entry.977502270', 'entry.709540229', 'entry.416285979', 'entry.1401925614']
+  var rowNum = 2 //first row
+
+  var column_letter;
+  var cell;
+  var cellValue;
+  var datamap = {};
+  var addition = ""
+
+  for (i = 0; i < NUMBER_OF_RESPONSES; i++){
+    var column_asci = 65 // column - the first is A=65
+    for (j = 0; j < my_entries_list.length; j++) 
+    {
+      if (column_asci>90)
+      {
+        addition = "A"
+        column_asci = 65;
+      } 
+      column_letter = String.fromCharCode(column_asci);
+      cell = addition + column_letter + rowNum.toString();
+      cellValue = wrkSht.getRange(cell).getValue();
+      if (typeof cellValue != "string"){
+        cellValue = parseInt(cellValue);
+        cellValue = cellValue.toString()
+      }
+
+      datamap[my_entries_list[j]] = cellValue;
+
+      column_asci += 1;
+    }
+    rowNum +=1;
+    j=0;
+    addition="";
+     var options = {"method" : "post",
+                 "payload" : datamap};
+
+    response = UrlFetchApp.fetch(formURL, options);
+
+  }
+
+}
