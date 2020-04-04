@@ -1,0 +1,5 @@
+<ul>
+    {% for movie in all_movies %}
+    <li><a href="{% url 'moviesDetails' movie.id %}">{{ movie.name }}</a></li>
+    {% endfor %}
+</ul>

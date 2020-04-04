@@ -1,0 +1,36 @@
+
+<h1>{{ movie.name }}</h1>
+<h3>{{ movie.creator }}</h3>
+<h3>{{ movie.year }}</h3>
+<h3>{{ movie.genre }}</h3>
+<br>
+<br>
+
+
+
+<!--<p>Feedbackers of this movie:-->
+<!--<UL>-->
+<!--    {% for fdbk in givenFeedbacks %}-->
+<!--        <li> {{ fdbk.feedbacker_name }} </li>-->
+<!--    {% endfor %}-->
+<!--</UL>-->
+
+
+{% if error_message %}
+    <p><strong>{{error_message}}</strong></p>
+{% endif %}
+
+
+<form action="{% url 'fbfavorite' movie.id %}" method="post">
+   {% csrf_token %}
+   {% for fdbk in givenFeedbacks %}
+        <input type="radio" id="fdbk{{ forloop.counter }}" name="fdbk" value="{{ fdbk.id }}" />
+        <label for="fdbk{{ forloop.counter }}">
+            {{ fdbk.feedbacker_name }}
+            {% if fdbk.is_favorite %}
+                <img src="http://i.imgur.com/b9b13Rd.png" />
+            {% endif %}
+        </label><br>
+    {% endfor %}
+     <input type="submit" value="favorite">
+</form>
